@@ -1,13 +1,12 @@
 {
-    "Index": 0,
-    "LoggregatorAddress": "localhost:3456",
+    "Index": 5,
+    "LoggregatorAddress": "10.0.7.160:3456",
     "SharedSecret": "secret",
-    "NatsHosts": ["localhost"],
+    "NatsHosts": ["10.0.7.122"],
     "NatsPort": 4222,
     "NatsUser": "nats",
-    "NatsPass": "password",
+    "NatsPass": "nats",
     "VarzUser": "varz",
     "VarzPass": "password",
-    "VarzPort": 8888,
-    "Syslog"  : ""
+    "VarzPort": 8888
 }

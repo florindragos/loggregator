@@ -18,7 +18,7 @@
 	url = https://github.com/nu7hatch/gouuid.git
 [submodule "src/github.com/cloudfoundry/loggregatorlib"]
 	path = src/github.com/cloudfoundry/loggregatorlib
-	url = https://github.com/cloudfoundry/loggregatorlib.git
+	url = https://github.com/UhuruSoftware/loggregatorlib.git
 [submodule "src/github.com/cloudfoundry/storeadapter"]
 	path = src/github.com/cloudfoundry/storeadapter
 	url = https://github.com/cloudfoundry/storeadapter
@@ -52,3 +52,10 @@
 [submodule "src/github.com/cloudfoundry/loggregator_consumer"]
 	path = src/github.com/cloudfoundry/loggregator_consumer
 	url = https://github.com/cloudfoundry/loggregator_consumer
+[submodule "src/github.com/ActiveState/tail"]
+	path = src/github.com/ActiveState/tail
+	url = https://github.com/UhuruSoftware/tail.git
+[submodule "src/gopkg.in/tomb.v1"]
+	path = src/gopkg.in/tomb.v1
+	url = https://gopkg.in/tomb.v1
+
