@@ -5,8 +5,7 @@ import (
 	"github.com/cloudfoundry/dropsonde/metrics"
 	"github.com/cloudfoundry/gosteno"
 	"github.com/howeyc/fsnotify"
-	"io/ioutil"
-	"path"
+	"path/filepath"
 	"sync"
 	"time"
 )
@@ -61,7 +60,6 @@ func (agent *Agent) processTasks(currentTasks map[string]domain.Task) func(known
 			if drainUrls == nil {
 				drainUrls = []string{}
 			}
-
 			identifier := task.Identifier()
 			_, present := knownTasks[identifier]
 
@@ -100,7 +98,7 @@ func (agent *Agent) pollInstancesJson() {
 
 	for {
 		time.Sleep(100 * time.Millisecond)
-		err := watcher.Watch(path.Dir(agent.InstancesJsonFilePath))
+		err := watcher.Watch(filepath.Dir(agent.InstancesJsonFilePath))
 		if err != nil {
 			agent.logger.Warnf("Reading failed, retrying. %s\n", err)
 			continue
@@ -137,22 +135,6 @@ func (agent *Agent) processInstancesJson() {
 	}
 
 	agent.knownInstancesChan <- agent.processTasks(currentTasks)
-}
-
-func (agent *Agent) readInstancesJson() (map[string]domain.Task, error) {
-	json, err := ioutil.ReadFile(agent.InstancesJsonFilePath)
-	if err != nil {
-		agent.logger.Warnf("Reading failed, retrying. %s\n", err)
-		return nil, err
-	}
-
-	currentTasks, err := domain.ReadTasks(json)
-	if err != nil {
-		agent.logger.Warnf("Failed parsing json %s: %v Trying again...\n", err, string(json))
-		return nil, err
-	}
-
-	return currentTasks, nil
 }
 
 func removeFromCache(taskId string) func(knownTasks map[string]*TaskListener) {
