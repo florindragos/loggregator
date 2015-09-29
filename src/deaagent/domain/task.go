@@ -2,6 +2,7 @@ package domain
 
 import (
 	"path/filepath"
+	"runtime"
 	"strconv"
 )
 
@@ -15,5 +16,9 @@ type Task struct {
 }
 
 func (task *Task) Identifier() string {
-	return filepath.Join(task.WardenContainerPath, "jobs", strconv.FormatUint(task.WardenJobId, 10))
+	if runtime.GOOS == "windows" {
+		return task.WardenContainerPath
+	} else {
+		return filepath.Join(task.WardenContainerPath, "jobs", strconv.FormatUint(task.WardenJobId, 10))
+	}
 }
