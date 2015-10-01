@@ -6,10 +6,10 @@ import (
 	"bytes"
 	"deaagent/domain"
 	"errors"
-	"github.com/ActiveState/tail"
 	"github.com/cloudfoundry/dropsonde/logs"
 	"github.com/cloudfoundry/gosteno"
 	"github.com/cloudfoundry/sonde-go/events"
+	"github.com/hpcloud/tail"
 	"io"
 
 	"fmt"

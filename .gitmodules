@@ -70,3 +70,15 @@
 [submodule "src/github.com/tedsuo/ifrit"]
 	path = src/github.com/tedsuo/ifrit
 	url = https://github.com/tedsuo/ifrit.git
+[submodule "src/github.com/hpcloud/tail"]
+	path = src/github.com/hpcloud/tail
+	url = https://github.com/hpcloud/tail
+[submodule "src/gopkg.in/tomb"]
+	path = src/gopkg.in/tomb
+	url = https://github.com/go-tomb/tomb.git
+[submodule "src/gopkg.in/tomb.v1"]
+	path = src/gopkg.in/tomb.v1
+	url = https://github.com/go-tomb/tomb.git
+[submodule "src/gopkg.in/fsnotify.v0"]
+	path = src/gopkg.in/fsnotify.v0
+	url = http://github.com/howeyc/fsnotify.git
