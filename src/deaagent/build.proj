@@ -8,12 +8,19 @@
 
   /t:Installer
     Creates the deaagent installer. Builds everything first.
+  
+  /t:UnitTest
+    Runs deaagent unit tests   
     
+  /t:IntegrationTest
+    Runs deaagent integration tests      
+	
   -->
 
   <PropertyGroup>
     <!-- Directory containing this .proj file -->
     <ProjectRoot>$(MSBuildThisFileDirectory)</ProjectRoot>
+	<LoggregatorRoot>$(ProjectRoot)..\..\</LoggregatorRoot>
 
     <!-- Location of installer tools -->
     <InstallerPackagerDir>$(ProjectRoot)\windows-tools\installer</InstallerPackagerDir>
@@ -26,7 +33,7 @@
   
   <!-- List of artifacts that need to be a part of the installer -->
   <ItemGroup>
-    <InstallerFile Include="$(ProjectRoot)\deaagent.exe">
+    <InstallerFile Include="$(ProjectRoot)\deaagent\deaagent.exe">
       <BinDestinationDir>$(InstallerPackagerBinDir)</BinDestinationDir>
     </InstallerFile>
   </ItemGroup>
@@ -43,6 +50,24 @@
   <!-- Target for building deaagent -->
   <Target Name="Build" >
     <Message Importance="high" Text="Building deaagent ..." />
-    <Exec WorkingDirectory="$(ProjectRoot)" Command="go build" />
+    <Exec WorkingDirectory="$(ProjectRoot)\deaagent" Command="go build -i" />
   </Target>
+  
+  <Target Name="PrepareDepandencies">
+    <Exec WorkingDirectory="$(LoggregatorRoot)" Command="go get github.com/onsi/ginkgo/ginkgo"></Exec>
+    <Exec WorkingDirectory="$(LoggregatorRoot)" Command="go get github.com/onsi/gomega"></Exec>
+    <Exec WorkingDirectory="$(LoggregatorRoot)" Command="go get github.com/coreos/etcd"></Exec>
+    <Exec WorkingDirectory="$(LoggregatorRoot)" Command="go get github.com/nats-io/gnatsd"></Exec>
+  </Target>
+  
+  <!-- Target for running deaagent unit tests -->
+  <Target Name="UnitTest" DependsOnTargets="PrepareDepandencies">
+    <Exec WorkingDirectory="$(LoggregatorRoot)\src\deaagent" Command="ginkgo -r"></Exec>
+  </Target>
+
+  <!-- Target for running deaagent integration tests -->
+  <Target Name="IntegrationTest" DependsOnTargets="PrepareDepandencies">
+    <Exec WorkingDirectory="$(LoggregatorRoot)\src\integration_tests\deaagent" Command="ginkgo -r"></Exec>
+  </Target>
+  
 </Project>

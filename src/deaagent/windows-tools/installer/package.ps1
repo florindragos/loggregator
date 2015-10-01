@@ -162,7 +162,7 @@ function DoAction-Install()
         exit 1;
     }
 
-    InstallMetron $destfolder $configuration
+    InstallDeaAgent $destfolder $configuration
 }
 
 # This function calls the nssm.exe binary to set a property
